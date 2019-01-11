@@ -27,6 +27,8 @@ classdef Game2048 < handle
         lhMoved
         lhGameOver
         lhGameWon
+        
+        player
     end
     
     properties (Access = protected, Constant)
@@ -44,8 +46,10 @@ classdef Game2048 < handle
             obj.Game = TwentyFortyEight(true);
            
              [y,fs] = audioread ('CB.mp3');
-
-      sound(y,fs);
+             Fs = fs;
+             obj.player = audioplayer(y, Fs);
+      %sound(y,fs);
+        play(obj.player);
             
       % Add event listeners 
             obj.lhMoved = event.listener(obj.Game, 'Moved', @obj.updateBlocks);
@@ -254,12 +258,15 @@ classdef Game2048 < handle
                          
                          sound(y,fs);
                     case 'm'
-                        pause sound 
+                        pause(obj.player); 
                         
+                    case 'p'
+                        resume(obj.player);
                  
                     case 'escape'
-                        delete(obj.hFig)
-                        clear sound 
+                        delete(obj.hFig);
+                        stop(obj.player);
+                        clear sound;
                     otherwise
                         return
                 end
