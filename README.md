@@ -10,3 +10,5 @@ Type Game2048 or play2048 into the command window. Use arrow keys to move the ti
 Pressing m mutes the music whilst pressing p resumes the music.
 
 Have fun!
+
+Work based off code from https://uk.mathworks.com/matlabcentral/fileexchange/46124-2048-matlab-edition
