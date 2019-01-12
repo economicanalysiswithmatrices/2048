@@ -7,4 +7,6 @@ Download the ZIP file into your computer and extract all to your default MATLAB 
 How to play:
 Type Game2048 or play2048 into the command window. Use arrow keys to move the tiles. When two tiles of the same number touch, the tiles merge into a larger number. The objective of the game is to create the 2048 tile.
 
+Pressing m mutes the music whilst pressing p resumes the music.
+
 Have fun!
