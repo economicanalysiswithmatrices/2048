@@ -391,7 +391,7 @@ classdef Game2048 < handle
         end
                 
         function mute(obj, varargin)
-            % toggleAnimation  Turn on/off animation of blocks
+            % toggle sound
             
         pause(obj.player);
         end
