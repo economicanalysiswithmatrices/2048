@@ -1,6 +1,5 @@
 classdef Game2048 < handle
    
-
     properties (SetAccess = protected)
         hFig    % Handle of main UI        
     end
@@ -45,11 +44,11 @@ classdef Game2048 < handle
             % Construct game object
             obj.Game = TwentyFortyEight(true);
            
-             [y,fs] = audioread ('CB.mp3');
+             [y,fs] = audioread ('BGM01.mp3');
              Fs = fs;
              obj.player = audioplayer(y, Fs);
       %sound(y,fs);
-             play(obj.player);
+        play(obj.player);
             
       % Add event listeners 
             obj.lhMoved = event.listener(obj.Game, 'Moved', @obj.updateBlocks);
@@ -83,21 +82,24 @@ classdef Game2048 < handle
                 'CData', obj.iconData.new, ...
                 'TooltipString', 'New game', ...
                 'ClickedCallback', @obj.newGame);
-          obj.hToolbarButtons(2) = uitoggletool(...
+          obj.hToolbarButtons(2) = uipushtool(...
                 'Parent', hToolbar, ...
                 'CData', obj.iconData.animOn, ...
                 'Separator', 'on', ...
-                'TooltipString', 'Mute', ...
-                'State', 'on', ...
-                'ClickedCallback', @obj.mute);
-             obj.hToolbarButtons(3) = uitoggletool(...
+                'TooltipString', 'Mute Music', ...
+                 'ClickedCallback', @obj.mute);
+             obj.hToolbarButtons(3) = uipushtool(...
                 'Parent', hToolbar, ...
                 'CData', obj.iconData.curves, ...
                 'Separator', 'on', ...
-                'TooltipString', 'Unmute', ...
-                'State', 'off', ...
+                'TooltipString', 'Unmute Music', ...
                 'ClickedCallback', @obj.unmute);
-          
+              obj.hToolbarButtons(4) = uipushtool(...
+                'Parent', hToolbar, ...
+                'CData', obj.iconData.lightbulb, ...
+                'Separator', 'on', ...
+                'TooltipString', 'About...', ...
+                'ClickedCallback', @obj.aboutGame);
          
        
             % Construct main axes
@@ -146,20 +148,7 @@ classdef Game2048 < handle
             obj.Blocks = GameBlock(obj.xPts(:), obj.yPts(:), ...
                 repmat({''}, 16, 1), .9, .9, hAx);
             
-            % Construct score history panel
-            hPanel = uipanel(...
-                'Parent', obj.hFig, ...
-                'Units', 'Pixels', ...
-                'Position', [430 0 400 480]);
-            obj.hAllScoresTable = uitable(hPanel, ...
-                'Units', 'Pixels', ...
-                'Position', [80 350 300 180], ...
-                'ColumnName', {'Score', 'Moves', 'Highest block'}, ...
-                'ColumnWidth', {50 50, 140});
-            obj.hHistoryAxes = axes(...
-                'Parent', hPanel, ...
-                'Units', 'Pixels', ...
-                'Position', [80 50 300 190]);
+       
             updateAllScoresData(obj)
 
             updateBlocks(obj)
@@ -168,8 +157,8 @@ classdef Game2048 < handle
        
    
         end
-
-        function val = get.ScreenSize(~)
+     
+      function val = get.ScreenSize(~)
             set(0, 'Units', 'Pixels')
             sc = get(0, 'ScreenSize');
             val = sc(3:4);
@@ -186,21 +175,28 @@ classdef Game2048 < handle
             else
                 %data = table2cell(obj.Game.AllScores(:,[1 3 4]));
                 data = [obj.Game.AllScores.FinalScore; obj.Game.AllScores.Moves; obj.Game.AllScores.HighBlock]';
-            end  
+            end
+           
+            
            
         end
-
+        
+        
+            
+           
+        
         function KeyPressFcn(obj, ~, edata)
             % KeyPressFcn  Callback to handle key presses
             
             if any(strcmp(edata.Key, ...
-                    {'escape', 'uparrow', 'downarrow', 'rightarrow', 'leftarrow','u','m','p'}))
+                    {'escape', 'uparrow', 'downarrow', 'rightarrow', 'leftarrow','m','p'}))
                 switch edata.Key
                     case 'uparrow'
                         move(obj.Game, 'up');
                          [y,fs] = audioread ('S.wav');
 
                            sound(y,fs);
+                
                     case 'downarrow'
                         move(obj.Game, 'down');
                          [y,fs] = audioread ('S.wav');
@@ -216,13 +212,12 @@ classdef Game2048 < handle
                          [y,fs] = audioread ('S.wav');
                          
                          sound(y,fs);
-    
                     case 'm'
                         pause(obj.player); 
                         
                     case 'p'
                         resume(obj.player);
-                
+                 
                     case 'escape'
                         delete(obj.hFig);
                         stop(obj.player);
@@ -323,7 +318,7 @@ classdef Game2048 < handle
                 updateColors(obj.Blocks);
                
                 set(obj.hScore, 'String', sprintf('Score: %d\nBest: %d', max(obj.Game.Scores), obj.Game.HighScore));
-                set(obj.hMoves, 'String', sprintf('Moves: %d', obj.Game.NumMoves));
+                set(obj.hMoves, 'String', sprintf('Moves Made: %d', obj.Game.NumMoves));
                 
                 if obj.HistoryDisplay
                     if obj.Game.NumMoves == 0
@@ -345,8 +340,12 @@ classdef Game2048 < handle
         
         function unmute(obj, varargin)
             resume(obj.player);
+        end
+        
+        function aboutGame(obj, varargin)
+            
         end 
-                    
+            
                  
        
     end
