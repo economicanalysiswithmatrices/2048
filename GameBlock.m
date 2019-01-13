@@ -9,6 +9,8 @@ classdef GameBlock < handle
         Txt
         Width
         Height
+        img
+     
     end
     
     properties (Dependent)
@@ -54,8 +56,8 @@ classdef GameBlock < handle
                 obj(id).hBox = rectangle(...
                     'Parent', hAx, ...
                     'Position', obj(id).RectanglePosition, ...
-                    'Curvature', [.1 .1], ...
-                    'EdgeColor', 'none', ...
+                    'Curvature', [0.5 0.5], ...
+                    'EdgeColor', 'black', ...
                     'FaceColor', [205 192 180]/255);
                 obj(id).hText = text(x(id), y(id), txt{id}, ...
                     'Parent', hAx, ...
@@ -65,6 +67,8 @@ classdef GameBlock < handle
                     'FontWeight', 'bold', ...
                     'FontUnits', 'Pixels', ...
                     'FontSize', 48);
+              
+
             end
             
             updateColors(obj)
@@ -86,55 +90,55 @@ classdef GameBlock < handle
             fontsize(ii) = fontsizeTable(1);
             ii = strcmp('2', txt);
             bgcolors(ii, :) = repmat([255 255 204]/255, nnz(ii), 1);
-            fgcolors(ii, :) = repmat([192 192 192]/255, nnz(ii), 1);
+            fgcolors(ii, :) = repmat([119 110 101]/255, nnz(ii), 1);
             fontsize(ii) = fontsizeTable(1);
             ii = strcmp('4', txt);
-            bgcolors(ii, :) = repmat([235 246 180]/255, nnz(ii), 1);
-            fgcolors(ii, :) = repmat([192 192 192]/255, nnz(ii), 1);
+            bgcolors(ii, :) = repmat([229 255 204]/255, nnz(ii), 1);
+            fgcolors(ii, :) = repmat([119 110 101]/255, nnz(ii), 1);
             fontsize(ii) = fontsizeTable(1);
             ii = strcmp('8', txt);
             bgcolors(ii, :) = repmat([204 255 229]/255, nnz(ii), 1);
-            fgcolors(ii, :) = repmat([192 192 192]/255, nnz(ii), 1);    
+            fgcolors(ii, :) = repmat([119 110 101]/255, nnz(ii), 1);
             fontsize(ii) = fontsizeTable(1);
             ii = strcmp('16', txt);
             bgcolors(ii, :) = repmat([204 229 255]/255, nnz(ii), 1);
-            fgcolors(ii, :) = repmat([192 192 192]/255, nnz(ii), 1);
+            fgcolors(ii, :) = repmat([119 110 101]/255, nnz(ii), 1);
             fontsize(ii) = fontsizeTable(2);
             ii = strcmp('32', txt);
             bgcolors(ii, :) = repmat([204 204 255]/255, nnz(ii), 1);
-            fgcolors(ii, :) = repmat([192 192 192]/255, nnz(ii), 1);
+            fgcolors(ii, :) = repmat([119 110 101]/255, nnz(ii), 1);
             fontsize(ii) = fontsizeTable(2);
             ii = strcmp('64', txt);
             bgcolors(ii, :) = repmat([229 204 255]/255, nnz(ii), 1);
-            fgcolors(ii, :) = repmat([192 192 192]/255, nnz(ii), 1);
+            fgcolors(ii, :) = repmat([119 110 101]/255, nnz(ii), 1);
             fontsize(ii) = fontsizeTable(2);
             ii = strcmp('128', txt);
             bgcolors(ii, :) = repmat([255 204 255]/255, nnz(ii), 1);
-            fgcolors(ii, :) = repmat([192 192 192]/255, nnz(ii), 1);
+            fgcolors(ii, :) = repmat([119 110 101]/255, nnz(ii), 1);
             fontsize(ii) = fontsizeTable(3);
             ii = strcmp('256', txt);
             bgcolors(ii, :) = repmat([255 204 204]/255, nnz(ii), 1);
-            fgcolors(ii, :) = repmat([192 192 192]/255, nnz(ii), 1);
+            fgcolors(ii, :) = repmat([119 110 101]/255, nnz(ii), 1);
             fontsize(ii) = fontsizeTable(3);
             ii = strcmp('512', txt);
-            bgcolors(ii, :) = repmat([255 229 204]/255, nnz(ii), 1);
-            fgcolors(ii, :) = repmat([192 192 192]/255, nnz(ii), 1);
+            bgcolors(ii, :) = repmat([237 200 80]/255, nnz(ii), 1);
+            fgcolors(ii, :) = repmat([119 110 101]/255, nnz(ii), 1);
             fontsize(ii) = fontsizeTable(3);
             ii = strcmp('1024', txt);
             bgcolors(ii, :) = repmat([255 204 153]/255, nnz(ii), 1);
-            fgcolors(ii, :) = repmat([192 192 192]/255, nnz(ii), 1);
+            fgcolors(ii, :) = repmat([119 110 101]/255, nnz(ii), 1);
             fontsize(ii) = fontsizeTable(4);
             ii = ismember(txt, {'2048', '4096', '8192'});
             bgcolors(ii, :) = repmat([255 153 153]/255, nnz(ii), 1);
-            fgcolors(ii, :) = repmat([192 192 192]/255, nnz(ii), 1);
+            fgcolors(ii, :) = repmat([119 110 101]/255, nnz(ii), 1);
             fontsize(ii) = fontsizeTable(4);
             ii = ismember(txt, {'16384', '32768', '65536'});
             bgcolors(ii, :) = repmat([255 102 102]/255, nnz(ii), 1);
-            fgcolors(ii, :) = repmat([192 192 192]/255, nnz(ii), 1);
+            fgcolors(ii, :) = repmat([119 110 101]/255, nnz(ii), 1);
             fontsize(ii) = fontsizeTable(5);
             ii = ismember(txt, {'131072', '262144', '524288'});
             bgcolors(ii, :) = repmat([255 51 51]/255, nnz(ii), 1);
-            fgcolors(ii, :) = repmat([192 192 192]/255, nnz(ii), 1);
+            fgcolors(ii, :) = repmat([119 110 101]/255, nnz(ii), 1);
             fontsize(ii) = fontsizeTable(6);
                                     
             set([obj.hBox], {'FaceColor'}, num2cell(bgcolors,2));
@@ -153,7 +157,7 @@ classdef GameBlock < handle
                 set([obj.hText], {'String'}, txt(:))
             elseif ~isempty(pos) && isempty(txt)
                 set([obj.hBox], {'Position'}, ...
-                    num2cell([pos'-[[obj.Width]/2; [obj.Height]/2]; [obj.Width]; [obj.Height]]',2))
+                    num2cell([pos'-[[obj.Width]/2.0; [obj.Height]/2.0]; [obj.Width]; [obj.Height]]',2))
                 set([obj.hText], {'Position'}, ...
                    num2cell([pos, zeros(size(pos,1),1)],2))
             else
