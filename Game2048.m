@@ -49,7 +49,7 @@ classdef Game2048 < handle
              Fs = fs;
              obj.player = audioplayer(y, Fs);
       %sound(y,fs);
-        play(obj.player);
+             play(obj.player);
             
       % Add event listeners 
             obj.lhMoved = event.listener(obj.Game, 'Moved', @obj.updateBlocks);
@@ -168,55 +168,7 @@ classdef Game2048 < handle
        
    
         end
-        
-        function runAI(obj, varargin)
-            % runAI  Run an AI algorithm to solve the puzzle
-            
-            if strcmp(get(varargin{1}, 'State'), 'off')
-                return
-            end
-            
-            % Select a function from the current folder. To make it simple,
-            % I only allow running an AI algorithm
-            [fn, pn] = uigetfile('*.m', 'Select an AI function', 'MultiSelect', 'off');
-            if isnumeric(fn)
-                return
-            end
-            
-            % CD to the path so that the function is visible
-            cd(pn)
-            
-            % Create function handle
-            [~, n] = fileparts(fn);
-            AIfcn = str2func(n);
-            
-            % Turn off GameWon/GameOver listener temporarily, since I check
-            % manually. Also disable other toolbar buttons
-            obj.lhGameWon.Enabled = false;
-            obj.lhGameOver.Enabled = false;
-            set(obj.hToolbarButtons([1 2 4 5 6]), 'Enable', 'off');
-            
-           
-            
-          
-            
-            set(varargin{1}, 'State', 'off')
-            set(obj.hToolbarButtons([1 2 4 5 6]), 'Enable', 'on');
 
-            if isGameWon(obj.Game)
-                GameWon(obj)
-            elseif isGameOver(obj.Game)
-                GameOver(obj)
-            end
-
-            if isvalid(obj.Game)
-                obj.Game.AIMode = false;
-            end
-
-            obj.lhGameWon.Enabled = true;
-            obj.lhGameOver.Enabled = true;
-        end
-        
         function val = get.ScreenSize(~)
             set(0, 'Units', 'Pixels')
             sc = get(0, 'ScreenSize');
@@ -234,21 +186,15 @@ classdef Game2048 < handle
             else
                 %data = table2cell(obj.Game.AllScores(:,[1 3 4]));
                 data = [obj.Game.AllScores.FinalScore; obj.Game.AllScores.Moves; obj.Game.AllScores.HighBlock]';
-            end
-           
-            
+            end  
            
         end
-        
-        
-            
-           
-        
+
         function KeyPressFcn(obj, ~, edata)
             % KeyPressFcn  Callback to handle key presses
             
             if any(strcmp(edata.Key, ...
-                    {'escape', 'uparrow', 'downarrow', 'rightarrow', 'leftarrow','m','p'}))
+                    {'escape', 'uparrow', 'downarrow', 'rightarrow', 'leftarrow','u','m','p'}))
                 switch edata.Key
                     case 'uparrow'
                         move(obj.Game, 'up');
@@ -270,12 +216,13 @@ classdef Game2048 < handle
                          [y,fs] = audioread ('S.wav');
                          
                          sound(y,fs);
+    
                     case 'm'
                         pause(obj.player); 
                         
                     case 'p'
                         resume(obj.player);
-                 
+                
                     case 'escape'
                         delete(obj.hFig);
                         stop(obj.player);
@@ -391,7 +338,7 @@ classdef Game2048 < handle
         end
                 
         function mute(obj, varargin)
-            % toggle sound
+            % toggleAnimation  Turn on/off animation of blocks
             
         pause(obj.player);
         end
