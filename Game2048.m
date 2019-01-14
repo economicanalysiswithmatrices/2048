@@ -343,11 +343,13 @@ classdef Game2048 < handle
         end
         
         function aboutGame(obj, varargin)
-            
-        end 
-            
-                 
-       
+            % Question Mark button that displays instructions when pressed
+            f  = msgbox('The Game 2048 is a sliding block puzzle with an objective to obtain the number 2048 by sliding and merging numbered tiles. Use the arrow keys to move the tiles and try and create the 2048 tile!','About the Game')
+              switch f 
+                  case 'Quit'
+                    delete(obj.aboutGame)
+    end
+                       end
     end
     
 end
