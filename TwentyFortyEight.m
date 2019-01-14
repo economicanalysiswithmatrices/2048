@@ -266,12 +266,7 @@ classdef TwentyFortyEight < handle
     end
     
     methods (Access = protected)
-        function updateAllScores(obj)
-            % Don't store score if AIMode
-            if obj.AIMode
-                return
-            end
-            
+        function updateAllScores(obj)            
             if isempty(obj.AllScores)
                 ac = struct('FinalScore', max(obj.Scores), ...
                     'Scores', obj.Scores(~isnan(obj.Scores)), ...
