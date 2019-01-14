@@ -333,12 +333,13 @@ classdef Game2048 < handle
         end
                 
         function mute(obj, varargin)
-            % toggleAnimation  Turn on/off animation of blocks
+            % push button to pause music
             
         pause(obj.player);
         end
         
         function unmute(obj, varargin)
+        %push button to resume music
             resume(obj.player);
         end
         
